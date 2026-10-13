@@ -1,6 +1,6 @@
 ---
 name: root-cause-cabal
-description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. Every cabal includes The Deranged Skeptic, an adversarial member who contests the finer details and never has the answers. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question. Accepts an issue description and a cabal size (number of investigator personas, default 3, max 6; the Skeptic sits outside the count).
+description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. Every cabal includes The Deranged Skeptic, an adversarial member who contests the finer details and never has the answers. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question. Accepts an issue description and a cabal size (number of investigator personas, default 5, max 6; the Skeptic sits outside the count).
 license: MIT
 ---
 
@@ -22,7 +22,7 @@ The user invokes with an issue and optionally a cabal size:
 
 Rules:
 - **Issue** = the description, plus any paths, repos, logs, or artifacts they point at. If the issue is missing entirely, ask for it before proceeding.
-- **Size** = number of investigative personas. Default **3**. If specified, honor it (floor 2, ceiling 6). Numbers as words ("four deranged engineers") count.
+- **Size** = number of investigative personas. Default **5**. If specified, honor it (floor 2, ceiling 6). Numbers as words ("four deranged engineers") count.
 - **Skeptic** = **The Deranged Skeptic** (see `references/personas.md`) is a standing member of every cabal: an adversarial member who contests the finer details, asks the challenging question, and never has the answer. They sit **outside** the `--size` count: `--size 4` casts 4 investigators + the Skeptic. The Skeptic produces objections, not a Finding Package, and never a hypothesis of their own. They may be omitted only when the user explicitly passes `--no-skeptic` (reserve this for trivial, low-stakes issues) — otherwise, seat them without being asked.
 - The target is usually read-only investigation. Do not edit the subject code unless the user explicitly asks for a fix as part of the same request.
 
@@ -104,7 +104,7 @@ Present to the user:
 
 ## Casting defaults (when `--size` is omitted)
 
-Default cabal: 3 investigators — **The Log Whisperer** (flight-recorder lens), **The Git Historian** (time-and-commits lens), and **The State-Machine Paranoid** (invariants-and-races lens) — **plus The Deranged Skeptic**, always. For distributed or infra-flavored issues, swap the third investigator for **The Boundary Skeptic** (integration edges). Full roster in `references/personas.md`.
+Default cabal: 5 investigators — **The Log Whisperer** (flight-recorder lens), **The Git Historian** (time-and-commits lens), **The State-Machine Paranoid** (invariants-and-races lens), **The Boundary Skeptic** (integration-edges lens), and **The Environmental Paranoid** (conditions-not-code lens) — **plus The Deranged Skeptic**, always. For distributed or infra-flavored issues, swap the Environmental Paranoid for **The Dependency Archaeologist** (supply-chain lens). Full roster in `references/personas.md`.
 
 ## Hard limits (the grown-up's standing orders)
 

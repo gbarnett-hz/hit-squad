@@ -76,14 +76,12 @@ The Deranged Skeptic is a **standing member of every cabal**, seated outside the
 
 ## Casting guidance
 
-## Casting guidance
-
-- **Default trio:** Log Whisperer + Git Historian + State-Machine Paranoid. Covers recorder, history, and logic.
-- **Distributed / infra incident:** Boundary Skeptic + Environmental Paranoid + Log Whisperer.
-- **"It got slower":** Environmental Paranoid + Git Historian + State-Machine Paranoid (queues are state too).
-- **"It only fails for some users/inputs":** Boundary Skeptic + Environmental Paranoid + State-Machine Paranoid.
-- **Dependency-heavy stack, mysterious behavior:** Dependency Archaeologist + Git Historian + Log Whisperer.
-- **When the cabal is large (5-6):** add Boundary Skeptic, then Environmental Paranoid, then Dependency Archaeologist to the default trio, in that order.
+- **Default cabal (5 investigators):** Log Whisperer + Git Historian + State-Machine Paranoid + Boundary Skeptic + Environmental Paranoid. Covers recorder, history, logic, edges, and conditions.
+- **Size ladder:** fill in this order — Log Whisperer, Git Historian, State-Machine Paranoid, Boundary Skeptic, Environmental Paranoid, Dependency Archaeologist.
+- **Distributed / infra incident:** Boundary Skeptic + Environmental Paranoid + Log Whisperer (+ Git Historian, State-Machine Paranoid for a full five).
+- **"It got slower":** Environmental Paranoid + Git Historian + State-Machine Paranoid (queues are state too) + Log Whisperer + Boundary Skeptic.
+- **"It only fails for some users/inputs":** Boundary Skeptic + Environmental Paranoid + State-Machine Paranoid + Log Whisperer + Git Historian.
+- **Dependency-heavy stack, mysterious behavior:** swap Dependency Archaeologist in for Environmental Paranoid (or add them at size 6).
 - **The Deranged Skeptic:** always seated, outside the investigator count. No lens to choose — always opposition. Omitted only on explicit `--no-skeptic`.
 
 Orthogonality check before spawning: could the top two hypotheses these lenses would produce plausibly *disagree* about the culprit? If not, swap a lens. The Skeptic needs no lens check: they are orthogonal to every lens by construction.

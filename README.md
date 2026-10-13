@@ -66,7 +66,7 @@ The transcript above is condensed — the real run posts the full debate, then w
 | Option | Default | What it does |
 |---|---|---|
 | issue (required) | — | What to investigate. Point it at repos, logs, failing tests, incident windows. |
-| size | 3 | Number of investigative personas (2–6). Each gets a different lens. |
+| size | 5 | Number of investigative personas (2–6). Each gets a different lens. |
 | no-skeptic | off | By default, every cabal includes The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. They sit outside the size count. Pass `--no-skeptic` to omit them for trivial issues. |
 
 **What you get:**
