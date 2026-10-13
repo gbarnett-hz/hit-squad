@@ -1,31 +1,44 @@
 # hit-squad
 
-A collection of agent skills, installable with the [skills.sh](https://skills.sh) CLI.
+A collection of agent skills, installable with the [skills.sh](https://skills.sh) CLI — works with opencode, Claude Code, and any other skills-compatible agent.
 
-## Skills
-
-### root-cause-cabal
-
-A root-cause investigation run as a cabal of deranged, manically obsessive engineer personas. Each persona investigates an issue from a conflicting lens (logs, git history, state invariants, integration boundaries, environment, dependencies), they argue with each other under an arbiter who kills trivial quarrels and enforces evidence, and the surviving analysis is handed to an RCA author who writes a coherent research document.
-
-The derangement is flavor; the epistemics are strict — every claim cites an artifact, every rival hypothesis is entombed with evidence or presented honestly as a split verdict.
-
-**Install** (from a cloned checkout or via the skills.sh CLI once published):
+## Install
 
 ```bash
-npx skills add <owner>/hit-squad
+npx skills add <owner>/hit-squad          # both skills, all agents
+npx skills add <owner>/hit-squad -g       # global install
+npx skills add <owner>/hit-squad -s root-cause-cabal -y   # one skill, no prompts
 ```
 
-**Usage:**
+## Skill: root-cause-cabal
+
+Point it at an issue — a bug, regression, incident, flaky test, outage — and it runs a root-cause investigation as a cabal of deranged, manically obsessive engineer personas. Each member investigates from a conflicting lens (logs, git history, state invariants, integration boundaries, environment, dependencies), they argue with each other about whose reasoning is better, and an arbiter keeps the quarrel productive: evidence above rhetoric, trivial fights killed, every rival hypothesis either entombed with evidence or honestly reported. The cabal hands its winning analysis to an RCA author who writes the final document.
+
+The derangement is flavor; the epistemics are strict — every claim cites an artifact.
+
+**Use it:**
 
 ```
-/root-cause-cabal "checkout API 500s under load since Tuesday" --size 4
-/root-cause-cabal "reconcile job corrupts ledger rows" --size 5 --contrarian
-/root-cause-cabal flaky test: test_invoice_reconcile fails 1-in-20
+> find the root cause of the checkout API 500s under load since Tuesday
+> why does test_invoice_reconcile fail 1-in-20? use the cabal with 4 investigators
+> root-cause-cabal: reconcile job corrupts ledger rows --contrarian
 ```
 
-- Default cabal size is 3; specify 2–6.
-- Add `--contrarian` for The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. They sit outside the cabal size count, and unanswered objections are reported honestly in the RCA document rather than buried.
-- The cabal investigates read-only and produces `RCA-<slug>.md` in your workspace.
+**Options:**
 
-See [skills/root-cause-cabal/SKILL.md](skills/root-cause-cabal/SKILL.md) for the full workflow and [skills/root-cause-cabal/references/](skills/root-cause-cabal/references/) for the persona roster, arbiter protocol, and RCA template.
+| Option | Default | What it does |
+|---|---|---|
+| issue (required) | — | What to investigate. Point it at repos, logs, failing tests, incident windows. |
+| size | 3 | Number of investigative personas (2–6). Each gets a different lens. |
+| contrarian | off | Adds The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. Sits outside the size count. |
+
+**What you get:**
+
+- The root cause in 2–3 sentences, the mechanism in 3–5 steps, and a confidence level
+- The rival hypotheses the cabal killed and the evidence that killed them
+- Unsettled objections from the Skeptic (if seated) — as questions, never buried
+- `RCA-<slug>.md` in your workspace: timeline, causal chain with citations, eliminated rivals, open questions, unknown list, and remediation proposals
+
+The cabal investigates read-only and never edits your code unless you explicitly ask for a fix.
+
+**Going deeper:** [SKILL.md](skills/root-cause-cabal/SKILL.md) has the full workflow; [references/](skills/root-cause-cabal/references/) has the persona roster, the arbiter protocol, and the RCA document template.
