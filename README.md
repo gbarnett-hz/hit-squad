@@ -9,9 +9,9 @@ A collection of agent skills, installable with the [skills.sh](https://skills.sh
 ## Install
 
 ```bash
-npx skills add <owner>/hit-squad          # hit-squad, all agents
-npx skills add <owner>/hit-squad -g       # global install
-npx skills add <owner>/hit-squad -s root-cause-cabal -y   # one skill, no prompts
+npx skills add gbarnett-hz/hit-squad          # hit-squad, all agents
+npx skills add gbarnett-hz/hit-squad -g       # global install
+npx skills add gbarnett-hz/hit-squad -s root-cause-cabal -y   # one skill, no prompts
 ```
 
 ## Skill: root-cause-cabal
