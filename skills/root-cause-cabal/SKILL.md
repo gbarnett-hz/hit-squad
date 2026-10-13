@@ -1,6 +1,6 @@
 ---
 name: root-cause-cabal
-description: Run a root-cause investigation as a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained. Use when the user asks to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question and wants a rigorous research-grade RCA document. Invocation accepts an issue description and a cabal size (number of personas, default 3, max 6).
+description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question. Accepts an issue description and a cabal size (number of personas, default 3, max 6).
 license: MIT
 ---
 
