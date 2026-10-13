@@ -16,7 +16,7 @@ npx skills add gbarnett-hz/hit-squad -s root-cause-cabal -y   # one skill, no pr
 
 ## Skill: root-cause-cabal
 
-Point it at an issue — a bug, regression, incident, flaky test, outage — and it runs a root-cause investigation as a cabal of deranged, manically obsessive engineer personas. Each member investigates from a conflicting lens (logs, git history, state invariants, integration boundaries, environment, dependencies), they argue with each other about whose reasoning is better, and an arbiter keeps the quarrel productive: evidence above rhetoric, trivial fights killed, every rival hypothesis either entombed with evidence or honestly reported. The cabal hands its winning analysis to an RCA author who writes the final document.
+Point it at an issue — a bug, regression, incident, flaky test, outage — and it runs a root-cause investigation as a cabal of deranged, manically obsessive engineer personas. Each member investigates from a conflicting lens (logs, git history, state invariants, integration boundaries, environment, dependencies), they argue with each other about whose reasoning is better, and an arbiter keeps the quarrel productive: evidence above rhetoric, trivial fights killed, every rival hypothesis either entombed with evidence or honestly reported. Every cabal also seats The Deranged Skeptic — the adversary who contests the finer details and never has the answers. The cabal hands its winning analysis to an RCA author who writes the final document.
 
 The derangement is flavor; the epistemics are strict — every claim cites an artifact.
 
@@ -25,7 +25,7 @@ The derangement is flavor; the epistemics are strict — every claim cites an ar
 ```
 > find the root cause of the checkout API 500s under load since Tuesday
 > why does test_invoice_reconcile fail 1-in-20? use the cabal with 4 investigators
-> root-cause-cabal: reconcile job corrupts ledger rows --contrarian
+> root-cause-cabal: reconcile job corrupts ledger rows
 ```
 
 ### Example
@@ -67,13 +67,13 @@ The transcript above is condensed — the real run posts the full debate, then w
 |---|---|---|
 | issue (required) | — | What to investigate. Point it at repos, logs, failing tests, incident windows. |
 | size | 3 | Number of investigative personas (2–6). Each gets a different lens. |
-| contrarian | off | Adds The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. Sits outside the size count. |
+| no-skeptic | off | By default, every cabal includes The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. They sit outside the size count. Pass `--no-skeptic` to omit them for trivial issues. |
 
 **What you get:**
 
 - The root cause in 2–3 sentences, the mechanism in 3–5 steps, and a confidence level
 - The rival hypotheses the cabal killed and the evidence that killed them
-- Unsettled objections from the Skeptic (if seated) — as questions, never buried
+- The Skeptic's unsettled objections — as questions, never buried
 - `RCA-<slug>.md` in your workspace: timeline, causal chain with citations, eliminated rivals, open questions, unknown list, and remediation proposals
 
 The cabal investigates read-only and never edits your code unless you explicitly ask for a fix.

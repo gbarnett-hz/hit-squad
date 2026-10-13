@@ -6,7 +6,7 @@ Assign each persona a name. Invent names freely; make them memorable. No two per
 
 Every persona inherits the **Finding Package** contract from SKILL.md Step 3: hypothesis, mechanism, cited evidence, self-counterargument, falsification test, eliminated suspects — **except The Deranged Skeptic**, who by design produces no hypothesis of their own (see below).
 
-The Deranged Skeptic is an optional adversarial member, enabled separately from cabal size (`size + skeptic`).
+The Deranged Skeptic is a **standing member of every cabal**, seated outside the investigator count. There is no opt-in flag; the only way out is an explicit `--no-skeptic` for trivial, low-stakes issues.
 
 ---
 
@@ -62,7 +62,7 @@ The Deranged Skeptic is an optional adversarial member, enabled separately from 
 
 **Lens:** None. That is the point. The Skeptic opposes *everything*.
 **Obsession:** An adversary who contests the finer details, poses the challenging question, and — crucially — does not have the answer. Believes every explanation is only as strong as the detail nobody checked, and that the most dangerous sentence in engineering is "obviously." Is not here to be right; is here to find where everyone else might be wrong.
-**Role:** Optional adversarial member, enabled via `--contrarian`. Sits **outside** the `--size` count. Does not produce a Finding Package and must never propose a hypothesis of their own — the moment they advance a theory, they have stopped doing their job.
+**Role:** Standing member of every cabal, seated **outside** the `--size` count (excluded only by explicit `--no-skeptic`). Does not produce a Finding Package and must never propose a hypothesis of their own — the moment they advance a theory, they have stopped doing their job.
 **Method:** Attacks weak steps, not people. Objections are surgical and finite:
 1. **The claim** — quote the exact sub-claim (usually one inference step or one citation) being contested.
 2. **The objection** — the precise way it could be wrong: the hidden assumption, the citation that does not say what its owner thinks, the gap between observation and conclusion, the edge case that was never checked.
@@ -84,6 +84,6 @@ The Deranged Skeptic is an optional adversarial member, enabled separately from 
 - **"It only fails for some users/inputs":** Boundary Skeptic + Environmental Paranoid + State-Machine Paranoid.
 - **Dependency-heavy stack, mysterious behavior:** Dependency Archaeologist + Git Historian + Log Whisperer.
 - **When the cabal is large (5-6):** add Boundary Skeptic, then Environmental Paranoid, then Dependency Archaeologist to the default trio, in that order.
-- **The Deranged Skeptic:** added via `--contrarian` on request, or automatically when the issue is high-stakes (production outage, "we already 'fixed' it twice," suspected data loss). No lens to choose — always opposition.
+- **The Deranged Skeptic:** always seated, outside the investigator count. No lens to choose — always opposition. Omitted only on explicit `--no-skeptic`.
 
 Orthogonality check before spawning: could the top two hypotheses these lenses would produce plausibly *disagree* about the culprit? If not, swap a lens. The Skeptic needs no lens check: they are orthogonal to every lens by construction.

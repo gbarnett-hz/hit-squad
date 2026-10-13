@@ -36,7 +36,7 @@ Keep the arbiter's session alive across rounds if the runtime supports it; other
 Each round, the arbiter publishes a schedule before any argument happens:
 
 1. **Subject** — the hypothesis under attack (usually the current leader) and its author.
-2. **Attackers** — one or two personas with the most relevant lens; everyone else observes (and may file written objections for later). If the Skeptic sits in, they open the attack phase with their single maximum-pain objection before the lens attackers go.
+2. **Attackers** — the Skeptic always opens with their single maximum-pain objection, then one or two investigator personas with the most relevant lens; everyone else observes (and may file written objections for later).
 3. **Burden of proof** — what the attacker must show to wound the hypothesis; what the defender must show to heal it.
 4. **Decisive form** — what a *round-winning* answer looks like (usually a citation that resolves the dispute one way or the other).
 
@@ -63,7 +63,7 @@ Consensus is declared when **all** of the following hold:
 1. Exactly one hypothesis is `standing`; all rivals are `entombed`.
 2. Consecutive rounds have produced no new evidence-backed objection against the survivor (two clean rounds, or the arbiter's judgment after the cap).
 3. Every persona has stated its verdict with a citation (`uphold | concede`); no silent parties.
-4. If the Skeptic sat in: every objection in the open-question ledger is `settled by <artifact>` or `conceded` — **or** the remaining `parked` ones are accepted into Unknowns. An unevidenced Skeptic doubt can never block consensus, and consensus can never silently erase a Skeptic doubt: each parked doubt is carried into the document's Open sharp questions section with its cheapest resolving test.
+4. Every objection in the open-question ledger is `settled by <artifact>` or `conceded` — **or** the remaining `parked` ones are accepted into Unknowns. An unevidenced Skeptic doubt can never block consensus, and consensus can never silently erase a Skeptic doubt: each parked doubt is carried into the document's Open sharp questions section with its cheapest resolving test.
 
 The arbiter writes the **Consensus Statement**: the root cause in one sentence, the causal chain in numbered steps with citations, the confidence level (`high | medium | low`) with justification, and the explicit unknowns. Derangement stays in the voices; the Consensus Statement is plain prose.
 
