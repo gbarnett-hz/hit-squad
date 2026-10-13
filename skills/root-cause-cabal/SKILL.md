@@ -1,6 +1,6 @@
 ---
 name: root-cause-cabal
-description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. Every cabal includes The Deranged Skeptic, an adversarial member who contests the finer details and never has the answers. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question. Accepts an issue description and a cabal size (number of investigator personas, default 5, max 6; the Skeptic sits outside the count).
+description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. The full cabal is fixed: six investigator personas (logs, git history, state invariants, integration edges, environment, dependencies) plus The Deranged Skeptic, an adversarial member who contests the finer details and never has the answers. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question.
 license: MIT
 ---
 
@@ -12,18 +12,18 @@ The derangement is flavor for the voices. The epistemics are dead serious: every
 
 ## Step 0 — Parse the invocation
 
-The user invokes with an issue and optionally a cabal size:
+The user invokes with an issue to investigate:
 
 ```
-/root-cause-cabal "checkout API 500s under load since Tuesday" --size 4
-/root-cause-cabal "reconcile job corrupts ledger rows" --size 5 --no-skeptic
+/root-cause-cabal "checkout API 500s under load since Tuesday"
+/root-cause-cabal "reconcile job corrupts ledger rows" --no-skeptic
 /root-cause-cabal flaky test: test_invoice_reconcile fails 1-in-20
 ```
 
 Rules:
 - **Issue** = the description, plus any paths, repos, logs, or artifacts they point at. If the issue is missing entirely, ask for it before proceeding.
-- **Size** = number of investigative personas. Default **5**. If specified, honor it (floor 2, ceiling 6). Numbers as words ("four deranged engineers") count.
-- **Skeptic** = **The Deranged Skeptic** (see `references/personas.md`) is a standing member of every cabal: an adversarial member who contests the finer details, asks the challenging question, and never has the answer. They sit **outside** the `--size` count: `--size 4` casts 4 investigators + the Skeptic. The Skeptic produces objections, not a Finding Package, and never a hypothesis of their own. They may be omitted only when the user explicitly passes `--no-skeptic` (reserve this for trivial, low-stakes issues) — otherwise, seat them without being asked.
+- **Team** = fixed and not configurable: 6 investigators (see Casting) + The Deranged Skeptic. If the user asks for a different number ("give me 3 deranged engineers"), the full cabal sits anyway — note in one line that the roster is fixed and proceed.
+- **Skeptic** = **The Deranged Skeptic** (see `references/personas.md`) is a standing member of every cabal: an adversarial member who contests the finer details, asks the challenging question, and never has the answer. The Skeptic produces objections, not a Finding Package, and never a hypothesis of their own. They may be omitted only when the user explicitly passes `--no-skeptic` (reserve this for trivial, low-stakes issues) — otherwise, seat them without being asked.
 - The target is usually read-only investigation. Do not edit the subject code unless the user explicitly asks for a fix as part of the same request.
 
 ## Step 1 — Recon before the cabal forms
@@ -38,11 +38,11 @@ Every investigator and the Skeptic get the Case Brief. Facts in the brief are sh
 
 ## Step 2 — Cast the cabal
 
-Assign each of the `size` investigators a **distinct, conflicting lens** from `references/personas.md` (or invent one in the same spirit if the issue demands a lens not listed — e.g., an infra/network lens for a distributed-systems incident). No two may share a lens. Give each a memorable name and a one-line obsession.
+The cast is standing and complete: seat all six investigators from `references/personas.md` — **The Log Whisperer** (logs), **The Git Historian** (history), **The State-Machine Paranoid** (invariants/races), **The Boundary Skeptic** (integration edges), **The Environmental Paranoid** (conditions), **The Dependency Archaeologist** (supply chain). If the issue clearly warrants a lens not in the roster, note it, but the six still sit. Give each a memorable name and a one-line obsession.
 
-The **Deranged Skeptic** always joins the cast as an extra standing member with no lens and no hypothesis — the adversary of every explanation including the ones the others have not stated yet. Their task contract differs from the investigators' (Step 3). Cast them alongside the investigators, never as an afterthought.
+The **Deranged Skeptic** always joins the cast as the seventh and final member, with no lens and no hypothesis — the adversary of every explanation including the ones the others have not stated yet. Their task contract differs from the investigators' (Step 3). Cast them alongside the investigators, never as an afterthought.
 
-The lenses must be chosen so their conclusions can actually disagree: if every lens trivially points at the same line, pick more orthogonal ones. Confirm the cast in one short block to the user and begin — do not wait for approval unless the user asked to review the cast.
+Confirm the cast in one short block to the user and begin — do not wait for approval unless the user asked to review the cast.
 
 ## Step 3 — Round 1: independent investigation
 
@@ -102,9 +102,9 @@ Present to the user:
 5. The path to the full RCA document.
 6. Caveat: this was a static/reasoned investigation unless the personas actually ran code; experiments proposed but not run are marked as such in the document.
 
-## Casting defaults (when `--size` is omitted)
+## The fixed team
 
-Default cabal: 5 investigators — **The Log Whisperer** (flight-recorder lens), **The Git Historian** (time-and-commits lens), **The State-Machine Paranoid** (invariants-and-races lens), **The Boundary Skeptic** (integration-edges lens), and **The Environmental Paranoid** (conditions-not-code lens) — **plus The Deranged Skeptic**, always. For distributed or infra-flavored issues, swap the Environmental Paranoid for **The Dependency Archaeologist** (supply-chain lens). Full roster in `references/personas.md`.
+Six investigators, always: **The Log Whisperer**, **The Git Historian**, **The State-Machine Paranoid**, **The Boundary Skeptic**, **The Environmental Paranoid**, **The Dependency Archaeologist** — plus **The Deranged Skeptic**. There is no size option; the roster does not shrink or grow to fit the issue. The lenses are chosen to be orthogonal: recorder, history, logic, edges, conditions, supply chain — so their hypotheses can genuinely conflict. Full roster in `references/personas.md`.
 
 ## Hard limits (the grown-up's standing orders)
 

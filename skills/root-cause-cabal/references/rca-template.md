@@ -20,7 +20,7 @@ The RCA author (a subagent) writes exactly one document, `RCA-<slug>.md` (slug: 
 ```markdown
 # RCA: <issue title>
 
-**Date:** <date> · **Cabal size:** <n> · **Verdict:** consensus | split · **Confidence:** high|medium|low
+**Date:** <date> · **Verdict:** consensus | split · **Confidence:** high|medium|low
 
 ## 1. Summary
 <3-5 sentences: what happened, why, and the mechanism in brief. A reader who stops here should understand the incident.>

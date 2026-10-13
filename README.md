@@ -24,7 +24,7 @@ The derangement is flavor; the epistemics are strict — every claim cites an ar
 
 ```
 > find the root cause of the checkout API 500s under load since Tuesday
-> why does test_invoice_reconcile fail 1-in-20? use the cabal with 4 investigators
+> why does test_invoice_reconcile fail 1-in-20? assemble the cabal
 > root-cause-cabal: reconcile job corrupts ledger rows
 ```
 
@@ -66,8 +66,7 @@ The transcript above is condensed — the real run posts the full debate, then w
 | Option | Default | What it does |
 |---|---|---|
 | issue (required) | — | What to investigate. Point it at repos, logs, failing tests, incident windows. |
-| size | 5 | Number of investigative personas (2–6). Each gets a different lens. |
-| no-skeptic | off | By default, every cabal includes The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. They sit outside the size count. Pass `--no-skeptic` to omit them for trivial issues. |
+| no-skeptic | off | Every cabal is fixed at six investigators — logs, git history, state invariants, integration edges, environment, dependencies — plus The Deranged Skeptic, an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. Pass `--no-skeptic` to omit them for trivial issues. |
 
 **What you get:**
 
