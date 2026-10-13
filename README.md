@@ -1,6 +1,6 @@
 # hit-squad
 
-![The root cause cabal arguing over a bug](logo.jpg)
+<img src="logo.jpg" alt="The root cause cabal arguing over a bug" width="800">
 
 A collection of agent skills, installable with the [skills.sh](https://skills.sh) CLI — works with opencode, Claude Code, and any other skills-compatible agent.
 
