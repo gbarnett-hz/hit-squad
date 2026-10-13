@@ -1,5 +1,7 @@
 # hit-squad
 
+![The root cause cabal arguing over a bug](logo.jpg)
+
 A collection of agent skills, installable with the [skills.sh](https://skills.sh) CLI — works with opencode, Claude Code, and any other skills-compatible agent.
 
 ## Install
