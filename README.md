@@ -1,5 +1,7 @@
 # hit-squad
 
+That bunch of nerds locked in the special room that nobody dares disrupt. Give them a problem, then get out of their way!
+
 <img src="logo.jpg" alt="The root cause cabal arguing over a bug" width="800">
 
 A collection of agent skills, installable with the [skills.sh](https://skills.sh) CLI — works with opencode, Claude Code, and any other skills-compatible agent.
@@ -7,7 +9,7 @@ A collection of agent skills, installable with the [skills.sh](https://skills.sh
 ## Install
 
 ```bash
-npx skills add <owner>/hit-squad          # both skills, all agents
+npx skills add <owner>/hit-squad          # hit-squad, all agents
 npx skills add <owner>/hit-squad -g       # global install
 npx skills add <owner>/hit-squad -s root-cause-cabal -y   # one skill, no prompts
 ```
