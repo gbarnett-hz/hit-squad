@@ -20,10 +20,12 @@ npx skills add <owner>/hit-squad
 
 ```
 /root-cause-cabal "checkout API 500s under load since Tuesday" --size 4
+/root-cause-cabal "reconcile job corrupts ledger rows" --size 5 --contrarian
 /root-cause-cabal flaky test: test_invoice_reconcile fails 1-in-20
 ```
 
 - Default cabal size is 3; specify 2–6.
+- Add `--contrarian` for The Deranged Skeptic: an adversarial member who contests the finer details, asks the challenging questions, and never has the answers. They sit outside the cabal size count, and unanswered objections are reported honestly in the RCA document rather than buried.
 - The cabal investigates read-only and produces `RCA-<slug>.md` in your workspace.
 
 See [skills/root-cause-cabal/SKILL.md](skills/root-cause-cabal/SKILL.md) for the full workflow and [skills/root-cause-cabal/references/](skills/root-cause-cabal/references/) for the persona roster, arbiter protocol, and RCA template.

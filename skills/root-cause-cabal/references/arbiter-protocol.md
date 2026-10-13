@@ -8,7 +8,9 @@ Keep the arbiter's session alive across rounds if the runtime supports it; other
 
 1. **Evidence gavel** — Any claim (attack or defense) without a citable artifact is struck. "It feels like" is not testimony. The arbiter names the required artifact: which file, which log range, which commit, which command output.
 2. **Relevance veto** — Anything that does not change which hypothesis is true is out of order. Style, turf, and personality quarrels are killed in one line, and the floor is reassigned immediately. No time is spent explaining the dismissal.
-3. **Fallacy bench** — The arbiter identifies and names fallacies on sight:
+3. **Maximum-pain rule for the Skeptic** — The Deranged Skeptic gets exactly **one objection per hypothesis per round**, and it must be their strongest: the hole that most threatens the hypothesis, not the most convenient one. Objections must cite artifacts where artifacts exist; if the Skeptic cannot point at evidence of a problem (only the bare possibility of one), the arbiter strikes the objection unless it targets a load-bearing inference step — and even then it is filed as an open question, never as a wound. The Skeptic does not get to re-raise an answered objection. An objection is resolved exactly once: `settled by <artifact>`, `conceded`, or `parked as unknown` in the Ruling. No re-litigation without genuinely new, distinct evidence.
+4. **Scope guardrail** — The Skeptic may not turn the debate into cosmic question time. Each objection must plausibly change the verdict *for this issue*. Doubts about the meaning of knowledge, the reliability of physics, or the general trustworthiness of logs-with-no-evidence-of-log-misbehavior are struck without ceremony.
+5. **Fallacy bench** — The arbiter identifies and names fallacies on sight:
    - correlation → causation (timeline adjacency without mechanism)
    - post hoc (it broke after X, therefore X)
    - survivorship (only looking at failing cases / only at passing cases)
@@ -17,18 +19,24 @@ Keep the arbiter's session alive across rounds if the runtime supports it; other
    - proof by verbosity (no amount of prose substitutes for a citation)
    - unfalsifiable claims ("it's probably timing" / "probably environment" with no test that could kill it)
    - middle-ground fallacy (splitting the difference between supported and unsupported claims)
-4. **Ledger keeper** — Maintains the hypothesis ledger across the whole debate:
+6. **Ledger keeper** — Maintains two ledgers across the whole debate:
+
+   **Hypothesis ledger:**
    | # | Hypothesis (one line) | Author | Status | Last decisive evidence |
    Statuses: `standing`, `wounded` (new evidence against, not yet fatal), `entombed` (falsification test failed or evidence refuted it), `resurrected` (entombed hypothesis revived by new evidence — allowed, and celebrated).
-5. **Closer** — Ends every round with a **Ruling** (format below). If two personas are repeating themselves, the arbiter cuts the loop and converts the dispute into a concrete test.
-6. **Clock** — Enforces the round cap (default 4 rounds). When rounds run out, it forces closure per "Termination" below.
+
+   **Open-question ledger** (the Skeptic's legacy — no answered or parked objection may be silently forgotten):
+   | # | Objection (one line) | Target hypothesis/step | Status | Resolution artifact |
+   Statuses: `open`, `settled by <artifact>`, `conceded`, `parked as unknown`. Everything left `open` or `parked` at closure flows into the RCA document's Open sharp questions section.
+7. **Closer** — Ends every round with a **Ruling** (format below). If two personas are repeating themselves, the arbiter cuts the loop and converts the dispute into a concrete test.
+8. **Clock** — Enforces the round cap (default 4 rounds). When rounds run out, it forces closure per "Termination" below.
 
 ## Round anatomy
 
 Each round, the arbiter publishes a schedule before any argument happens:
 
 1. **Subject** — the hypothesis under attack (usually the current leader) and its author.
-2. **Attackers** — one or two personas with the most relevant lens; everyone else observes (and may file written objections for later).
+2. **Attackers** — one or two personas with the most relevant lens; everyone else observes (and may file written objections for later). If the Skeptic sits in, they open the attack phase with their single maximum-pain objection before the lens attackers go.
 3. **Burden of proof** — what the attacker must show to wound the hypothesis; what the defender must show to heal it.
 4. **Decisive form** — what a *round-winning* answer looks like (usually a citation that resolves the dispute one way or the other).
 
@@ -41,6 +49,7 @@ RULING — Round <n>
 Established: <what the round settled, in one or two lines>
 Contested: <what remains, precisely>
 Ledger: <hypotheses that moved status, and why>
+Open questions: <each Skeptic objection from this round: settled by <artifact> | conceded | parked as unknown>
 Strongest survivor: <hypothesis and its single best artifact>
 Next: <the one question or test that would most reduce uncertainty>
 ```
@@ -54,6 +63,7 @@ Consensus is declared when **all** of the following hold:
 1. Exactly one hypothesis is `standing`; all rivals are `entombed`.
 2. Consecutive rounds have produced no new evidence-backed objection against the survivor (two clean rounds, or the arbiter's judgment after the cap).
 3. Every persona has stated its verdict with a citation (`uphold | concede`); no silent parties.
+4. If the Skeptic sat in: every objection in the open-question ledger is `settled by <artifact>` or `conceded` — **or** the remaining `parked` ones are accepted into Unknowns. An unevidenced Skeptic doubt can never block consensus, and consensus can never silently erase a Skeptic doubt: each parked doubt is carried into the document's Open sharp questions section with its cheapest resolving test.
 
 The arbiter writes the **Consensus Statement**: the root cause in one sentence, the causal chain in numbered steps with citations, the confidence level (`high | medium | low`) with justification, and the explicit unknowns. Derangement stays in the voices; the Consensus Statement is plain prose.
 

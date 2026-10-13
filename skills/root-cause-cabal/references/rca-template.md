@@ -12,6 +12,7 @@ The RCA author (a subagent) writes exactly one document, `RCA-<slug>.md` (slug: 
   - **Trigger** — the event or change that activated the root cause.
   - **Contributing factors** — what let it persist, hide, or spread (missing observability, swallowed errors, no test).
 - If the arbiter declared a **split verdict**, write the document around both survivors: present the leading hypothesis as such, the rival as such, and the discriminating test. Do not pretend consensus exists.
+- If The Deranged Skeptic sat in, their ledger is part of the record: objections settled by evidence go where that evidence lives (usually the evidence chain, with a line noting the doubt they answered); unanswered questions get their own honest section — never buried, never inflated into claims.
 - Mark clearly what was *executed* vs. *reasoned*. Experiments proposed but not run are labeled `[not run]`.
 
 ## Document structure
@@ -41,17 +42,20 @@ The RCA author (a subagent) writes exactly one document, `RCA-<slug>.md` (slug: 
 ## 6. Rival hypotheses eliminated
 <For each: the hypothesis in one line, who championed it, the evidence that killed it (or why it survived as the rival, in a split verdict).>
 
-## 7. Contributing factors
+## 7. Open sharp questions
+<Only if The Deranged Skeptic sat in. The objections that were never settled by evidence: each stated precisely as a question (not a claim), what the Skeptic contested, why it remains open, and the cheapest observation that would close it. Never omit a parked objection; never restate one as a finding. If there were none, write "None — every objection was settled by evidence.">
+
+## 8. Contributing factors
 <Why it was possible / why it took so long to find. Includes observability gaps as first-class findings.>
 
-## 8. Confidence and unknowns
+## 9. Confidence and unknowns
 <Confidence level and honest justification. Each unknown: what would resolve it, the cheapest test, expected result.>
 
-## 9. Remediation
+## 10. Remediation
 <Ordered by leverage: fix the root cause, then the contributing factors. Each item: action, why it addresses the cause, a verification step. Concrete proposals only — no "add more logging" without specifying what and where.>
 
-## 10. Cabal deliberations (abridged)
-<The argument distilled: each persona in one line, the sharpest exchange of the debate, and the arbiter's final ruling. This section preserves *why to believe* the analysis — the rivalries, concessions, and the entombed hypotheses.>
+## 11. Cabal deliberations (abridged)
+<The argument distilled: each persona in one line, the sharpest exchange of the debate, the Skeptic's most damaging objection and how it ended, and the arbiter's final ruling. This section preserves *why to believe* the analysis — the rivalries, concessions, and the entombed hypotheses.>
 ```
 
 ## Length discipline

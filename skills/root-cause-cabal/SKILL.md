@@ -16,12 +16,14 @@ The user invokes with an issue and optionally a cabal size:
 
 ```
 /root-cause-cabal "checkout API 500s under load since Tuesday" --size 4
+/root-cause-cabal "reconcile job corrupts ledger rows" --size 5 --contrarian
 /root-cause-cabal flaky test: test_invoice_reconcile fails 1-in-20
 ```
 
 Rules:
 - **Issue** = the description, plus any paths, repos, logs, or artifacts they point at. If the issue is missing entirely, ask for it before proceeding.
 - **Size** = number of investigative personas. Default **3**. If specified, honor it (floor 2, ceiling 6). Numbers as words ("four deranged engineers") count.
+- **Contrarian** = include **The Deranged Skeptic** (see `references/personas.md`), an adversarial member who contests the finer details, asks the challenging question, and never has the answer. Enabled by `--contrarian` / "adversarial member" / "devil's advocate" wording, or automatically for high-stakes issues (production outage, suspected data loss, a "fix" that has failed before). The Skeptic sits **outside** the `--size` count: `--size 4 --contrarian` casts 4 investigators + the Skeptic. The Skeptic produces objections, not a Finding Package, and never a hypothesis of their own.
 - The target is usually read-only investigation. Do not edit the subject code unless the user explicitly asks for a fix as part of the same request.
 
 ## Step 1 — Recon before the cabal forms
@@ -38,11 +40,13 @@ Every persona gets the Case Brief. Facts in the brief are shared ground; everyth
 
 Assign each of the `size` personas a **distinct, conflicting lens** from `references/personas.md` (or invent one in the same spirit if the issue demands a lens not listed — e.g., an infra/network lens for a distributed-systems incident). No two personas may share a lens. Give each a memorable name and a one-line obsession.
 
+If the **Deranged Skeptic** is enabled, add them to the cast as an extra member with no lens and no hypothesis — the adversary of every explanation including the ones the others have not stated yet. Their task contract differs from the investigators' (Step 3).
+
 The lenses must be chosen so their conclusions can actually disagree: if every lens trivially points at the same line, pick more orthogonal ones. Confirm the cast in one short block to the user and begin — do not wait for approval unless the user asked to review the cast.
 
 ## Step 3 — Round 1: independent investigation
 
-Spawn one subagent per persona **in parallel** (use your runtime's task/spawn tool with a general-purpose subagent; if none exists, simulate one persona at a time in sequence). Each receives: the Case Brief, their persona, the evidence pointers, and this task contract:
+Spawn one subagent per investigator **in parallel** (use your runtime's task/spawn tool with a general-purpose subagent; if none exists, simulate one persona at a time in sequence). Each receives: the Case Brief, their persona, the evidence pointers, and this task contract:
 
 > You are **<name>**, a deranged but rigorously evidence-driven <lens> obsessive investigating: <issue>.
 > Read the persona file at `references/personas.md` for your method and voice.
@@ -56,6 +60,10 @@ Spawn one subagent per persona **in parallel** (use your runtime's task/spawn to
 > 6. **Suspects I eliminated** — rival explanations and the evidence that killed them (at least the obvious ones).
 > Voice: deranged obsession, but never fabricate a fact. Flavor in prose, rigor in evidence. Stay strictly within the issue's scope.
 
+The **Skeptic's Round-1 task contract** is different — they investigate only to build ammunition:
+
+> You are **<name>**, The Deranged Skeptic. You have no lens, no hypothesis, and no desire to acquire either. Your job is to map every step of reasoning in this case that currently rests on assumption rather than artifact — in the Case Brief (what did the orchestrator take for granted?), in the obvious suspects, and in what everyone will predictably claim next. Produce a **Preemptive Objection Docket**: for each soft spot, the claim that will be made, why it may not follow, and what artifact would settle it. You do not answer. You do not theorize. You only doubt — surgically and with citations where they exist. Voice: impeccably polite, endlessly annoying, never cruel.
+
 ## Step 4 — Rounds 2..N: the argument
 
 Have every persona read `references/arbiter-protocol.md` before this step. The orchestrator holds the transcript and relays messages — personas never talk directly.
@@ -65,20 +73,22 @@ The **arbiter** runs each round. It is a separate subagent persona (keep it aliv
 1. Publish the round schedule: which finding is under attack, who attacks, what a decisive answer looks like.
 2. Enforce evidence: reject any objection or defense that cites no artifact. Name the fallacy when one appears (`references/arbiter-protocol.md` has the checklist).
 3. Kill irrelevant quarrels immediately — anything that does not change which hypothesis is true is out of order.
-4. Track the **hypothesis ledger**: `standing / wounded / entombed / resurrected`, with the evidence that moved each one.
+4. Track the **hypothesis ledger**: `standing / wounded / entombed / resurrected`, with the evidence that moved each one, and the **open-question ledger** for the Skeptic's unresolved objections.
 5. Close the round with a **Ruling**: what the round established, what remains contested, what the strongest surviving hypothesis is, and the single most informative next question.
+
+If the **Skeptic** is in the cabal, they get first attack rights in each round, before the scheduled attacker: exactly one objection against the hypothesis under fire, forced response required — the defender must either answer the objection with an artifact or concede it into the open-question ledger. The Ruling must state how each Skeptic objection ended: `settled by <artifact>`, `conceded`, or `parked as unknown`. The Skeptic can never stall the room: if they cannot cite an artifact for an objection, the arbiter strikes it; if the defender answers it, they must move on.
 
 The orchestrator then runs the next attack round against the leading hypothesis and its chief rival. Attack prompts must be adversarial but aimed at *reasoning*, never at the persona: "your step 3 assumes the cache is warm — the Boot Race log at `boot.log:44` contradicts it; reconcile or concede."
 
 **Convergence rules** (full detail in `references/arbiter-protocol.md`):
 - A hypothesis is **entombed** only when its falsification test was run (or its evidence refuted) and it never resurrects.
-- Consensus is reached when one hypothesis stands with all rivals entombed, and no persona can land a new evidence-backed objection. The arbiter declares it.
+- Consensus is reached when one hypothesis stands with all rivals entombed, and no persona (investigator or Skeptic) can land a new evidence-backed objection. The arbiter declares it. An unanswerable-but-unevidenced Skeptic doubt does not block consensus; it parks as an unknown.
 - If no consensus after the round cap (**default 4 rounds**), the arbiter forces a **split verdict**: strongest hypothesis, chief rival, the discriminating evidence that would decide it, and a recommendation. Never loop forever.
 - If the debate deadlocks on a genuinely undecidable point, the arbiter converts it into an explicit Unknown and moves on. Unknowns are allowed; hand-waving is not.
 
 ## Step 5 — Handoff to the RCA author
 
-When the arbiter rules consensus (or split verdict), spawn the **RCA author** subagent. It receives the full transcript, the Case Brief, the hypothesis ledger, and `references/rca-template.md`. It produces a single research document, `RCA-<slug>.md`, following the template exactly: incident summary, timeline, root cause narrative (mechanism), evidence chain with citations, rivals eliminated and why, confidence + unknowns, and remediation. It may re-verify any citation before including it but must not add new hypotheses.
+When the arbiter rules consensus (or split verdict), spawn the **RCA author** subagent. It receives the full transcript, the Case Brief, the hypothesis ledger, the open-question ledger, and `references/rca-template.md`. It produces a single research document, `RCA-<slug>.md`, following the template exactly: incident summary, timeline, root cause narrative (mechanism), evidence chain with citations, rivals eliminated and why, open sharp questions (if the Skeptic sat in), confidence + unknowns, and remediation. It may re-verify any citation before including it but must not add new hypotheses.
 
 Keep the flavor in the voices and the "cabal deliberations" section; keep the findings themselves plain, precise, and independently verifiable. Never let theatrics leak into the evidence.
 
@@ -87,9 +97,10 @@ Keep the flavor in the voices and the "cabal deliberations" section; keep the fi
 Present to the user:
 1. A tight summary: the root cause in 2-3 sentences, the mechanism in 3-5 steps, confidence level.
 2. The rival hypotheses the cabal killed and the evidence that killed them.
-3. Remaining unknowns, each with the cheapest test that would resolve it.
-4. The path to the full RCA document.
-5. Caveat: this was a static/reasoned investigation unless the personas actually ran code; experiments proposed but not run are marked as such in the document.
+3. If the Skeptic sat in: their unresolved objections — the ones not settled by evidence, each stated as a question with what would settle it. These go in the document's "Open sharp questions" section; a settled objection is reported as settled, with the artifact.
+4. Remaining unknowns, each with the cheapest test that would resolve it.
+5. The path to the full RCA document.
+6. Caveat: this was a static/reasoned investigation unless the personas actually ran code; experiments proposed but not run are marked as such in the document.
 
 ## Casting defaults (when `--size` is omitted)
 
@@ -98,6 +109,7 @@ Default 3 personas: **The Log Whisperer** (flight-recorder lens), **The Git Hist
 ## Hard limits (the grown-up's standing orders)
 
 - No fabricated evidence, ever. If it is not in the artifacts, it goes in Unknowns.
+- The Skeptic never proposes a hypothesis — attack only. The moment they defend a theory, they have switched sides and lost the plot.
 - No persona edits the subject system without explicit user authorization; experiments that would mutate state must be proposed, not run.
 - Cap the argument: default 4 rounds, then the arbiter forces closure. Raise only if the user asks.
 - The final document must stand on its own for a reader who never saw the debate: every claim in it traceable to a cited artifact.
