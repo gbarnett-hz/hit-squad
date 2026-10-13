@@ -28,6 +28,39 @@ The derangement is flavor; the epistemics are strict — every claim cites an ar
 > root-cause-cabal: reconcile job corrupts ledger rows --contrarian
 ```
 
+### Example
+
+```
+> root-cause-cabal: checkout API returns 500s under load since Tuesday
+
+Log Whisperer:      First 500 at 14:03:07.219 — 219ms after pool_wait starts.
+State-Machine:      Pool exhaustion. The retry path waits twice on the same slot.
+Git Historian:      Tuesday: 9c1f2ab touches the retry path. Reading it. Hold on.
+Deranged Skeptic:   You assume pool_wait implies starvation. Where's the pool
+                    pressure evidence?
+Arbiter:            Evidence gavel. Cite the metric or the objection is struck.
+Log Whisperer:      pool_pending=64 on every failing host — matches the cap.
+Deranged Skeptic:   Fine. But "since Tuesday" — is the window itself even true?
+Arbiter:            Log Whisperer, census: failing vs passing shifts. If the
+                    window is wrong, every lens is chasing the wrong Tuesday.
+Log Whisperer:      Failures start 14:03 — 9 minutes AFTER the resolver
+                    migration deployed at 13:54, not at it.
+Deranged Skeptic:   Then your migration story needs the migration. Connection?
+Git Historian:      9c1f2ab, the resolver migration: adds retry-on-timeout to
+                    pool_wait. Each retry re-enters without releasing the slot.
+                    Two waits, one slot.
+Log Whisperer:      And 14:03 is when p99 latency crossed the timeout.
+Deranged Skeptic:   But the deploy was 13:54 — a 9-minute gap. Is the deploy
+                    even the trigger, or just load ramping? Unexplained.
+Arbiter:            Parked as unknown; needs the request-rate census 13:54–14:03.
+                    Verdict: consensus. Retry-on-timeout after the resolver
+                    migration double-waits, exhausting the pool under load.
+
+RCA: checkout-api-500s.md — high confidence, 1 parked skeptic question
+```
+
+The transcript above is condensed — the real run posts the full debate, then writes `checkout-api-500s.md` with the timeline, cited causal chain, eliminated rivals, and the parked question.
+
 **Options:**
 
 | Option | Default | What it does |
