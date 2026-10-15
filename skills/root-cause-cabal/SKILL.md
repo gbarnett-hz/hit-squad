@@ -1,6 +1,6 @@
 ---
 name: root-cause-cabal
-description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. The full cabal is fixed: six investigator personas (logs, git history, state invariants, integration edges, environment, dependencies) plus The Deranged Skeptic, an adversarial member who contests the finer details and never has the answers. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question.
+description: Deep root cause analysis (RCA) performed by a cabal of deranged, manically obsessive engineer personas who each investigate from a different angle, argue with each other about whose reasoning is better, and converge under an arbiter until every rival hypothesis is dead or explained — ending in a written RCA research document. The full cabal is fixed — six investigator personas (logs, git history, state invariants, integration edges, environment, dependencies) plus The Deranged Skeptic, an adversarial member who contests the finer details and never has the answers. Use when asked to find the root cause of a bug, regression, incident, flaky test, crash, outage, performance cliff, or any "why does X happen / why did X break" question.
 license: MIT
 ---
 
